@@ -1,7 +1,7 @@
 # Stage 1: Build the NestJS application
 FROM node:20.10.0 AS build
 
-WORKDIR /app
+WORKDIR '/app'
 
 COPY package.json package-lock.json ./
 
@@ -14,7 +14,7 @@ RUN npm run build
 # Stage 2: Prepare the production environment
 FROM node:20.10.0 AS production
 
-WORKDIR /app
+WORKDIR '/app'
 
 COPY package.json package-lock.json ./
 
