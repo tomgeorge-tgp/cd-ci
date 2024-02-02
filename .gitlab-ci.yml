@@ -1,0 +1,50 @@
+stages:
+  - build
+  - test
+  - push
+  - deploy
+
+variables:
+  AWS_SECRET_ACCESS_KEY: "On93igS//q47A0qLfp7ijSCFqV3pNziZreKlY56I"
+  ECR_REPOSITORY_API: "test_server"
+  ECR_REPOSITORY_CLIENT: "test_client"
+  ECR_REPOSITORY_NGINX: "test_nginx"
+  ECS_CLUSTER_NAME: test
+  ECS_SERVICE_NAME_API: test-server
+  ECS_SERVICE_NAME_CLIENT: test-client
+  ECS_SERVICE_NAME_NGINX: test-nginx
+  DOCKER_COMPOSE_FILE: docker-compose.yml
+
+build:
+  stage: build
+  script:
+    - docker-compose build
+
+test:
+  stage: test
+  script:
+    - docker-compose -f $DOCKER_COMPOSE_FILE up -d
+    - docker-compose -f $DOCKER_COMPOSE_FILE run api npm test
+    - docker-compose -f $DOCKER_COMPOSE_FILE down
+
+push:
+  stage: push
+  image: 
+    name: amazon/aws-cli
+    entrypoint: [""]
+  before_script:
+    -  aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 654654317309.dkr.ecr.eu-central-1.amazonaws.com
+  script:
+    - docker tag test_server:latest $ECR_REPOSITORY_API:latest
+    - docker push $ECR_REPOSITORY_API:latest
+    - docker tag test_client:latest $ECR_REPOSITORY_CLIENT:latest
+    - docker push $ECR_REPOSITORY_CLIENT:latest
+    - docker tag test_nginx:latest $ECR_REPOSITORY_NGINX:latest
+    - docker push $ECR_REPOSITORY_NGINX:latest
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Actual AWS ECS deployment commands go here"
+  only:
+    - master

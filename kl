@@ -1,0 +1,7 @@
+AWS_ACCESS_KEY_ID='AKIAZQ3DQEL6YFILMGUY'
+AWS_SECRET_ACCESS_KEY="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"
+AWS_S3_REGION='eu-north-1'
+
+BUCKET_REGION='eu-north-1'
+BUCKET_NAME='auto-fill-jobs-files'
+DATABASE_URL="postgresql://autofilljobsuser:lVuAAcsgFzi0Uah@autofilljobs-rdb.cdg0q2e4696q.eu-central-1.rds.amazonaws.com:5432/autofilljobsDB"
