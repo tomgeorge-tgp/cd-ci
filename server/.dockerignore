@@ -1,0 +1,28 @@
+# Common ignores
+node_modules
+npm-debug.log
+yarn-error.log
+.env
+# .env.local
+# .env.development.local
+# .env.test.local
+# .env.production.local
+.DS_Store
+.git
+.gitignore
+.dockerignore
+*.md
+LICENSE
+.docker/
+
+# # Frontend specific
+# # Ignore local development folders/files
+# public/
+# src/
+# *.config.js
+# *.config.json
+
+# # Backend specific
+# # Ignore build output and temporary files
+# dist/
+# *.log
